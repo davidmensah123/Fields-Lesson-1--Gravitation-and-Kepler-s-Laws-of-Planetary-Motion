@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravitational Fields &amp; Kepler's Laws</title>
+    <!-- Tailwind CSS for premium styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax for high-quality mathematical typesetting -->
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .canvas-container {
+            position: relative;
+            background: #030712;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.8);
+        }
+        .derivation-block {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.8;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Custom range sliders matching deep space theme */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #1e293b;
+            height: 6px;
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #4f46e5;
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- Header -->
+    <header class="bg-slate-950 text-white py-16 px-6 border-b border-indigo-950 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-950/40 via-slate-950/80 to-slate-950 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-violet-300">
+                Gravitational Fields &amp; Kepler's Laws
+            </h1>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <span class="bg-indigo-950/80 text-indigo-300 border border-indigo-900/50 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">Newton's Gravity</span>
+                <span class="bg-indigo-950/80 text-indigo-300 border border-indigo-900/50 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">Newton's Cannon</span>
+                <span class="bg-indigo-950/80 text-indigo-300 border border-indigo-900/50 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">Kepler's Laws</span>
+                <span class="bg-indigo-950/80 text-indigo-300 border border-indigo-900/50 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">Orbital Trajectories</span>
+            </div>
+            <div class="bg-indigo-950/20 p-6 rounded-2xl border border-indigo-900/40 backdrop-blur-md">
+                <div class="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-1">IB / AQA / OCR / EDEXCEL</div>
+                <h2 class="text-xl font-semibold mb-2 text-indigo-300">Learning Objectives</h2>
+                <ul class="list-disc ml-5 space-y-1.5 text-slate-300 text-sm">
+                    <li>Describe the relationship between gravitational force and centripetal force.</li>
+                    <li>Apply Newton’s Law of Gravitation to objects in circular and elliptical orbits.</li>
+                    <li>Quantitatively solve problems involving gravitational force, field strength, orbital speed, and period.</li>
+                    <li>Explore the mathematical derivations of Kepler's Third Law and escape velocities.</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-12 px-6 space-y-16">
+
+        <!-- Nature of Science -->
+        <section class="prose prose-invert max-w-none bg-slate-900/30 p-6 rounded-2xl border border-indigo-950 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-950/10 rounded-full -mr-8 -mt-8 pointer-events-none opacity-50"></div>
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-950 pb-2 text-indigo-200">Nature of Science</h2>
+            <p class="italic text-slate-400 leading-relaxed text-sm md:text-base">
+                "In this world, there is a natural cause for things to happen. For example, if a ball falls to the ground, we assume it is the result of gravity. Newton's great intellectual leap was to realize that the same force pulling an apple to the ground also keeps the Moon orbiting the Earth. By unifying terrestrial and astronomical physics, Newton transformed observational patterns (Kepler's Laws) into a single predictive model of Universal Gravitation, which was later modified by Einstein's space-time curvature."
+            </p>
+        </section>
+
+        <!-- Section 1: Newton's Law of Gravitation -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">1. Newton's Law of Universal Gravitation</h2>
+            <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                Newton's Law of Gravitation states that any two point masses in the universe attract each other with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers:
+                $$F = G \frac{Mm}{r^2}$$
+                where \(G \approx 6.67 \times 10^{-11} \text{ N m}^2\text{ kg}^{-2}\) is the universal gravitational constant. This force acts along the line joining the centers of the two masses and represents an attractive action-reaction pair matching Newton's Third Law.
+            </p>
+
+            <!-- Simulation A: Newton's Gravity Sandbox -->
+            <div class="space-y-4 pt-4">
+                <h3 class="font-bold text-xl text-indigo-300">Simulation A: Gravitational Force &amp; Field Sandbox</h3>
+                <p class="text-sm text-slate-400">
+                    Sway the parameters below to alter mass \(M_1\), mass \(M_2\), and their separation distance \(r\). Observe how the mutual attractive force vectors change in real time, validating the inverse-square law.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Visualizer -->
+                    <div class="canvas-container h-[260px] lg:col-span-7">
+                        <canvas id="canvas-gravity-sandbox" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Interactive controls -->
+                    <div class="bg-slate-900/40 p-5 rounded-2xl border border-indigo-950 flex flex-col justify-between space-y-4 lg:col-span-5 text-xs">
+                        <div class="space-y-4">
+                            <span class="text-indigo-200 font-bold block text-sm border-b border-indigo-950 pb-1.5">Masses &amp; Separation</span>
+                            
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Mass of Body 1 (\(M_1\)):</span>
+                                    <span id="lbl-m1" class="text-indigo-400 font-bold">50 × 10²⁴ kg</span>
+                                </label>
+                                <input type="range" id="slider-m1" min="10" max="150" step="5" value="50" class="w-full" oninput="updateGravitySandbox()">
+                            </div>
+
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Mass of Body 2 (\(M_2\)):</span>
+                                    <span id="lbl-m2" class="text-violet-400 font-bold">30 × 10²⁴ kg</span>
+                                </label>
+                                <input type="range" id="slider-m2" min="10" max="150" step="5" value="30" class="w-full" oninput="updateGravitySandbox()">
+                            </div>
+
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Separation distance (\(r\)):</span>
+                                    <span id="lbl-r" class="text-emerald-400 font-bold">12.0 × 10⁶ m</span>
+                                </label>
+                                <input type="range" id="slider-r" min="5.0" max="25.0" step="0.5" value="12.0" class="w-full" oninput="updateGravitySandbox()">
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950 border border-indigo-950/60 p-3 rounded-xl space-y-1.5 font-mono text-[10px] leading-relaxed">
+                            <div class="flex justify-between"><span>Force Magnitude (\(F\)):</span> <span id="lbl-val-f" class="font-bold text-sky-400">-- N</span></div>
+                            <div class="flex justify-between"><span>Field \(g_1\) at Body 2:</span> <span id="lbl-val-g1" class="font-bold text-indigo-400">-- m/s²</span></div>
+                            <div class="flex justify-between"><span>Field \(g_2\) at Body 1:</span> <span id="lbl-val-g2" class="font-bold text-violet-400">-- m/s²</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Gravity Inside a Planet -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">2. Gravitational Field Inside a Planet</h2>
+            <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                For a point outside a spherical planet of radius \(R\), the gravitational field strength acts as though all planetary mass \(M\) is concentrated at its center:
+                $$g_{\text{outside}} = \frac{GM}{r^2} \quad (r \ge R)$$
+                However, for a point *inside* a uniform density planet (\(r < R\)), shell theorem dictates that only the sphere of mass inside radius \(r\) exerts a net gravitational pull. The outer shell's forces cancel out.
+                $$\text{Mass inside } r: \quad m = M \left(\frac{r^3}{R^3}\right)$$
+                $$\text{Field inside } r: \quad g_{\text{inside}} = \frac{G m}{r^2} = \frac{G M r}{R^3} \quad (r < R)$$
+                Therefore, inside a uniform planet, gravity is **directly proportional to distance from the center** (\(g \propto r\)), peaking on the surface before decaying exponentially outside (\(g \propto \frac{1}{r^2}\)).
+            </p>
+
+            <!-- Interactive Piecewise Plotter -->
+            <div class="space-y-4">
+                <h3 class="font-bold text-xl text-indigo-300">Simulation B: Inside vs. Outside Field Plotter</h3>
+                <p class="text-sm text-slate-400">
+                    Sway the planetary parameters and observe the piecewise gravity function. Inside the boundary line (planet surface \(r = R\)), gravity rises linearly. Outside, gravity decays as an inverse-square function.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 bg-slate-950 p-4 rounded-xl border border-indigo-950">
+                        <svg id="svg-piecewise" class="w-full h-48 overflow-visible">
+                            <!-- Grid lines -->
+                            <line x1="10%" y1="0" x2="10%" y2="90%" stroke="rgba(255,255,255,0.05)"></line>
+                            <line x1="50%" y1="0" x2="50%" y2="90%" stroke="rgba(255,255,255,0.05)"></line>
+                            <line x1="90%" y1="0" x2="90%" y2="90%" stroke="rgba(255,255,255,0.05)"></line>
+                            
+                            <!-- Axes -->
+                            <line x1="10%" y1="10%" x2="10%" y2="90%" stroke="#475569" stroke-width="1.5"></line>
+                            <line x1="10%" y1="90%" x2="95%" y2="90%" stroke="#475569" stroke-width="1.5"></line>
+                            
+                            <!-- Dynamic paths -->
+                            <path id="svg-field-path" d="" fill="none" stroke="#6366f1" stroke-width="2.5"></path>
+                            <line id="svg-surface-boundary" x1="0" y1="0" x2="0" y2="100%" stroke="#ef4444" stroke-dasharray="3,3" stroke-width="1.5"></line>
+                            
+                            <text x="8%" y="15%" fill="#94a3b8" font-size="8" font-weight="bold">Field Strength g</text>
+                            <text x="90%" y="95%" fill="#94a3b8" font-size="8" font-weight="bold">r</text>
+                        </svg>
+                        <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-2 px-10">
+                            <span>Center (r = 0)</span>
+                            <span class="text-rose-500">Surface (r = R)</span>
+                            <span>Deep Space (r >> R)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/40 p-5 rounded-2xl border border-indigo-950 flex flex-col justify-between space-y-4 lg:col-span-5 text-xs h-48">
+                        <div class="space-y-4">
+                            <span class="text-indigo-200 font-bold block text-sm border-b border-indigo-950 pb-1">Planet Parameters</span>
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Planet Radius (\(R\)):</span>
+                                    <span id="lbl-planet-r" class="text-indigo-400 font-bold">6,000 km</span>
+                                </label>
+                                <input type="range" id="slider-planet-r" min="30" max="150" step="5" value="80" class="w-full" oninput="drawPiecewiseField()">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Planet Mass (\(M\)):</span>
+                                    <span id="lbl-planet-m" class="text-indigo-400 font-bold">5.0 × 10²⁴ kg</span>
+                                </label>
+                                <input type="range" id="slider-planet-m" min="10" max="150" step="5" value="60" class="w-full" oninput="drawPiecewiseField()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Gravitation & Circular Motion (Newton's Cannon) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">3. Newton's Cannonball Thought Experiment</h2>
+            <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                Isaac Newton imagined a cannon fired horizontally from a high mountain. At low speeds, the projectile falls back to Earth. As the launch velocity increases, the curvature of the trajectory matches the curvature of the Earth. At this point, the projectile is in continuous free-fall, orbiting the planet:
+                $$F_{\text{centripetal}} = F_{\text{gravity}} \implies \frac{m v^2}{r} = G \frac{Mm}{r^2} \implies v = \sqrt{\frac{GM}{r}}$$
+            </p>
+
+            <!-- Simulation C: Newton's Cannonball Sandbox -->
+            <div class="space-y-4 pt-4">
+                <h3 class="font-bold text-xl text-indigo-300">Simulation C: Interactive Newton's Cannonball Launcher</h3>
+                <p class="text-sm text-slate-400">
+                    Set the horizontal launch speed (\(v_0\)). Observe how different velocities correspond to circular paths, elliptical orbits, or hyperbolic escape paths (\(v_{\text{escape}} = \sqrt{2} v_{\text{circular}}\)).
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <!-- Simulation Canvas -->
+                    <div class="canvas-container h-80 md:col-span-7">
+                        <canvas id="canvas-newton-cannon" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Right Controls Panel -->
+                    <div class="bg-slate-900/40 p-5 rounded-2xl border border-indigo-950 h-80 flex flex-col justify-between shadow-sm md:col-span-5 text-xs">
+                        <div class="space-y-4">
+                            <span class="text-indigo-200 font-bold block text-sm border-b border-indigo-950 pb-1.5">Cannon Controller</span>
+                            
+                            <div>
+                                <label class="block text-slate-400 font-semibold mb-1 flex justify-between">
+                                    <span>Launch Velocity (\(v_0\)):</span>
+                                    <span id="lbl-cannon-v" class="text-indigo-400 font-bold">5.00 km/s</span>
+                                </label>
+                                <input type="range" id="slider-cannon-v" min="1.0" max="11.0" step="0.1" value="5.0" class="w-full" oninput="updateCannonParams()">
+                            </div>
+
+                            <button onclick="fireCannon()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow">
+                                Fire Cannon / Reset
+                            </button>
+                        </div>
+
+                        <div class="border-t border-indigo-950 pt-3 space-y-1 font-mono text-[10px] bg-slate-950 p-2.5 rounded-lg border border-indigo-900/30">
+                            <div class="flex justify-between"><span>Circular Velocity (\(v_c\)):</span> <span id="lbl-cannon-vc" class="font-bold text-sky-400">-- km/s</span></div>
+                            <div class="flex justify-between"><span>Escape Velocity (\(v_e\)):</span> <span id="lbl-cannon-ve" class="font-bold text-purple-400">-- km/s</span></div>
+                            <div class="flex justify-between"><span>Trajectory Status:</span> <span id="lbl-cannon-status" class="font-bold text-rose-400">--</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Kepler's Laws -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">4. Kepler's Laws of Planetary Motion</h2>
+            <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                Kepler's empirically derived laws of planetary motion describe the movement of planets about the Sun, which Newton later justified mathematically.
+            </p>
+
+            <!-- Simulation D: Kepler's Laws Visualizer -->
+            <div class="space-y-4 pt-4">
+                <h3 class="font-bold text-xl text-indigo-300">Simulation D: Kepler's Laws Interactive Dashboard</h3>
+                <p class="text-sm text-slate-400">
+                    Switch between the tabs to explore Kepler's three structural laws in planetary motion.
+                </p>
+
+                <!-- Tab selectors -->
+                <div class="flex border-b border-indigo-950 gap-2">
+                    <button onclick="switchKeplerTab('first')" id="tab-kepler-first" class="px-4 py-2 text-xs font-bold bg-indigo-950 text-indigo-300 border-t border-x border-indigo-900 rounded-t-lg transition">Kepler's 1st Law</button>
+                    <button onclick="switchKeplerTab('second')" id="tab-kepler-second" class="px-4 py-2 text-xs font-semibold hover:bg-indigo-950/40 text-slate-400 transition">Kepler's 2nd Law</button>
+                    <button onclick="switchKeplerTab('third')" id="tab-kepler-third" class="px-4 py-2 text-xs font-semibold hover:bg-indigo-950/40 text-slate-400 transition">Kepler's 3rd Law</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Kepler Visualizer Canvas -->
+                    <div class="canvas-container h-[280px] lg:col-span-7">
+                        <canvas id="canvas-kepler-laws" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Explanatory Text Box -->
+                    <div class="bg-slate-900/40 p-5 rounded-2xl border border-indigo-950 h-[280px] flex flex-col justify-between text-xs lg:col-span-5">
+                        <div class="space-y-3" id="box-kepler-explanation">
+                            <!-- Dynamic Explanation Injection -->
+                            <h4 class="text-sm font-bold text-indigo-300" id="kepler-title">Kepler's First Law</h4>
+                            <p class="text-slate-300 leading-relaxed" id="kepler-desc">
+                                Planets move in elliptical orbits with the Sun located at one of the two foci of the ellipse.
+                            </p>
+                            <div class="bg-slate-950 p-2.5 rounded-lg border border-indigo-900/30 font-mono text-[10px] space-y-1" id="kepler-stats">
+                                <div>Orbit Eccentricity (\(e\)): <span id="lbl-kepler-ecc" class="text-indigo-400 font-bold">0.50</span></div>
+                                <div id="lbl-kepler-aux">Sum of focal distances (\(r_1 + r_2\)) is constant.</div>
+                            </div>
+                        </div>
+
+                        <!-- Active Parameter Sliders -->
+                        <div class="border-t border-indigo-950 pt-3" id="kepler-controls">
+                            <label class="block text-slate-400 font-semibold mb-1 flex justify-between" id="lbl-slider-kepler">
+                                <span>Orbit Eccentricity (\(e\)):</span>
+                            </label>
+                            <input type="range" id="slider-kepler-param" min="0" max="75" step="5" value="50" class="w-full" oninput="updateKeplerParams()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Mathematical Derivations -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">5. Mathematical Derivations</h2>
+            
+            <div class="bg-slate-900/40 p-6 rounded-xl border border-indigo-950 shadow-sm space-y-3">
+                <span class="bg-indigo-950 text-indigo-300 text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Derivation: Kepler's Third Law (\(T^2 \propto r^3\))</span>
+                <div class="derivation-block text-xs space-y-3 font-serif text-slate-300">
+                    <p><b>Step 1: Equate Gravitational Attraction to Centripetal Force</b><br>
+                    For a planet of mass \(m\) orbiting a star of mass \(M\) in a stable circular orbit of radius \(r\) at velocity \(v\):<br>
+                    \[\frac{G M m}{r^2} = \frac{m v^2}{r} \implies v^2 = \frac{G M}{r}\]</p>
+                    
+                    <p><b>Step 2: Express velocity in terms of period \(T\)</b><br>
+                    Circular velocity is defined by the circumference divided by the orbital period: \(v = \frac{2\pi r}{T}\). Substitute this expression into the velocity equation:<br>
+                    \[\left(\frac{2\pi r}{T}\right)^2 = \frac{G M}{r} \implies \frac{4\pi^2 r^2}{T^2} = \frac{G M}{r}\]</p>
+
+                    <p><b>Step 3: Isolate period \(T^2\)</b><br>
+                    Multiply both sides by \(r\) and solve for \(T^2\):<br>
+                    \[T^2 = \left(\frac{4\pi^2}{G M}\right) r^3 \implies \mathbf{T^2 \propto r^3}\]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Solved Worked Examples -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b-2 border-indigo-900 pb-2 text-indigo-200">6. Solved Worked Examples</h2>
+            
+            <!-- Worked Example 1 -->
+            <div class="bg-slate-900/40 p-6 rounded-xl border border-indigo-950 shadow-sm space-y-3">
+                <span class="bg-indigo-950 text-indigo-300 text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Worked Example 1: Earth-Moon Gravitational Pull</span>
+                <p class="text-sm text-slate-200 font-semibold mt-2">
+                    Question: Calculate the mutual gravitational force of attraction between the Earth and the Moon. 
+                    <br>• Earth mass \(M_E \approx 5.97 \times 10^{24}\text{ kg}\)
+                    <br>• Moon mass \(M_M \approx 7.35 \times 10^{22}\text{ kg}\)
+                    <br>• Average separation distance \(r \approx 3.84 \times 10^{8}\text{ m}\)
+                </p>
+                <div class="derivation-block text-xs space-y-3 font-serif text-slate-300">
+                    <p class="font-bold font-sans text-indigo-300 text-sm">Step-by-step Solution:</p>
+                    <p>We apply Newton's Law of Universal Gravitation:<br>
+                    \[F = G \frac{M_E M_M}{r^2}\]<br>
+                    Substitute the physical constants:<br>
+                    \[F = (6.67 \times 10^{-11}) \frac{(5.97 \times 10^{24}) \times (7.35 \times 10^{22})}{(3.84 \times 10^{8})^2}\]<br>
+                    Evaluate the numerator and denominator:<br>
+                    \[F = (6.67 \times 10^{-11}) \frac{4.38795 \times 10^{47}}{1.47456 \times 10^{17}} = (6.67 \times 10^{-11}) \times (2.9757 \times 10^{30}) \approx \mathbf{1.98 \times 10^{20}\text{ N}}\]</p>
+                </div>
+            </div>
+
+            <!-- Worked Example 2 -->
+            <div class="bg-slate-900/40 p-6 rounded-xl border border-indigo-950 shadow-sm space-y-3">
+                <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Worked Example 2: Determining Martian Mass</span>
+                <p class="text-sm text-slate-200 font-semibold mt-2">
+                    Question: Mars' moon Phobos orbits Mars with a radius of \(r = 9.38 \times 10^6\text{ m}\) and an orbital period of \(T = 7.66\text{ hours}\). Deducing from Kepler's Third Law, calculate the mass of Mars.
+                </p>
+                <div class="derivation-block text-xs space-y-3 font-serif text-slate-300">
+                    <p class="font-bold font-sans text-indigo-300 text-sm">Step-by-step Solution:</p>
+                    <p><b>Step 1: Convert period \(T\) to seconds</b><br>
+                    \[T = 7.66\text{ hours} \times 3600\text{ s/hour} = 27,576\text{ s}\]</p>
+                    
+                    <p><b>Step 2: Apply Kepler's Third Law</b><br>
+                    \[T^2 = \left(\frac{4\pi^2}{GM}\right)r^3 \implies M = \frac{4\pi^2 r^3}{G T^2}\]<br>
+                    Substitute Mars parameters:<br>
+                    \[M = \frac{4 \pi^2 \times (9.38 \times 10^6)^3}{6.67 \times 10^{-11} \times (27576)^2} = \frac{4 \pi^2 \times (8.253 \times 10^{20})}{6.67 \times 10^{-11} \times 7.604 \times 10^8}\]<br>
+                    \[M = \frac{3.258 \times 10^{22}}{5.072 \times 10^{-2}} \approx \mathbf{6.42 \times 10^{23}\text{ kg}}\]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Calculation Challenges -->
+        <section class="space-y-10">
+            <h2 class="text-3xl font-bold text-center text-indigo-300 pt-8 border-t border-indigo-950">Calculation Challenges</h2>
+
+            <!-- Challenge 1 -->
+            <div class="bg-slate-900/40 p-8 rounded-2xl shadow-md border border-indigo-950">
+                <div class="flex items-start justify-between mb-4 border-b border-indigo-950 pb-3">
+                    <h3 class="text-xl font-bold text-indigo-300">Challenge 1: Geostationary Orbit Altitude</h3>
+                    <span class="text-slate-500 font-mono text-sm">[7 Marks]</span>
+                </div>
+                <p class="mb-4 text-sm leading-relaxed text-slate-300">
+                    A geostationary satellite remains stationary relative to a point on Earth's equator by revolving with a period equal to Earth's sidereal rotation (\(T = 86,164\text{ s}\)). 
+                    Take Earth's mass as \(M_E = 5.97 \times 10^{24}\text{ kg}\) and \(G = 6.67 \times 10^{-11}\text{ N m}^2\text{ kg}^{-2}\).
+                </p>
+
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">a) Calculate the orbital radius \(r\) of a geostationary satellite. [4 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task1a-input" class="p-2 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter orbital radius" step="1000">
+                            <span class="text-slate-400 text-sm">meters (m)</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">b) Calculate the linear orbital speed \(v\) of the geostationary satellite. [3 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task1b-input" class="p-2 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter speed" step="0.1">
+                            <span class="text-slate-400 text-sm">m/s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <button onclick="checkTask1()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition shadow">Check Answers</button>
+                    <button onclick="toggleSolution('sol-1')" class="bg-slate-800 text-slate-200 px-6 py-2.5 rounded-lg font-bold hover:bg-slate-700 transition">Show Full Solution</button>
+                </div>
+                <p id="msg-task-1" class="mt-4 font-medium"></p>
+                
+                <!-- Solution Block 1 -->
+                <div id="sol-1" class="hidden mt-4 p-6 bg-slate-900 border-l-4 border-indigo-500 rounded-xl text-sm space-y-4 text-slate-300">
+                    <strong class="text-slate-200 font-bold">Step-by-step Solution:</strong>
+                    <p><b>Part a) Orbital Radius:</b><br>
+                    From Kepler's Third Law:<br>
+                    \[r^3 = \frac{G M_E T^2}{4\pi^2}\]<br>
+                    Substitute constants:<br>
+                    \[r^3 = \frac{(6.67 \times 10^{-11}) \times (5.97 \times 10^{24}) \times (86164)^2}{4\pi^2} = \frac{2.956 \times 10^{24}}{39.478} \approx 7.487 \times 10^{22}\text{ m}^3\]<br>
+                    Take the cube root:<br>
+                    \[r = \sqrt[3]{7.487 \times 10^{22}} \approx \mathbf{4.21 \times 10^7\text{ m}} \quad (\approx 42,100\text{ km})\]</p>
+
+                    <p><b>Part b) Linear Speed:</b><br>
+                    Using the circular velocity relationship:<br>
+                    \[v = \frac{2\pi r}{T} = \frac{2\pi \times 4.215 \times 10^7}{86164} \approx \mathbf{3070\text{ m/s}} \quad (\approx 3.07\text{ km/s})\]</p>
+                </div>
+            </div>
+
+            <!-- Challenge 2 -->
+            <div class="bg-slate-900/40 p-8 rounded-2xl shadow-md border border-indigo-950">
+                <div class="flex items-start justify-between mb-4 border-b border-indigo-950 pb-3">
+                    <h3 class="text-xl font-bold text-indigo-300">Challenge 2: Piecewise Field Strengths</h3>
+                    <span class="text-slate-500 font-mono text-sm">[6 Marks]</span>
+                </div>
+                <p class="mb-4 text-sm leading-relaxed text-slate-300">
+                    A hypothetical planet with a perfectly uniform density has a mass of \(M = 3.00 \times 10^{24}\text{ kg}\) and a radius of \(R = 5,000\text{ km}\) (\(5.00 \times 10^6\text{ m}\)). 
+                </p>
+
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">a) Calculate the gravitational field strength \(g\) on the surface of this planet. [3 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task2a-input" class="p-2.5 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter surface gravity" step="0.01">
+                            <span class="text-slate-400 text-sm">m/s²</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">b) Calculate the field strength \(g\) at a point halfway down to the center (\(r = 2,500\text{ km}\)). [3 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task2b-input" class="p-2.5 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter internal gravity" step="0.01">
+                            <span class="text-slate-400 text-sm">m/s²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <button onclick="checkTask2()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition shadow">Check Answers</button>
+                    <button onclick="toggleSolution('sol-2')" class="bg-slate-800 text-slate-200 px-6 py-2.5 rounded-lg font-bold hover:bg-slate-700 transition">Show Full Solution</button>
+                </div>
+                <p id="msg-task-2" class="mt-4 font-medium"></p>
+                
+                <!-- Solution Block 2 -->
+                <div id="sol-2" class="hidden mt-4 p-6 bg-slate-50 border-l-4 border-indigo-500 rounded-xl text-sm space-y-4 text-slate-700">
+                    <strong class="text-slate-800 font-bold">Mathematical Proof &amp; Explanation:</strong>
+                    <p><b>Part a) Surface Gravity:</b><br>
+                    Using the standard inverse-square law for points outside/on the surface:<br>
+                    \[g = \frac{G M}{R^2} = \frac{6.67 \times 10^{-11} \times 3.00 \times 10^{24}}{(5.00 \times 10^6)^2} = \frac{2.001 \times 10^{14}}{2.50 \times 10^{13}} = \mathbf{8.00\text{ m/s}^2}\]</p>
+                    
+                    <p><b>Part b) Internal Gravity halfway down:</b><br>
+                    Inside a uniform density sphere, gravity decreases linearly with distance to the center: \(g_{\text{inside}} = g_{\text{surf}} \left(\frac{r}{R}\right)\). At \(r = 0.5R\):<br>
+                    \[g = 8.00 \times \left(\frac{2.50 \times 10^6}{5.00 \times 10^6}\right) = 8.00 \times 0.5 = \mathbf{4.00\text{ m/s}^2}\]</p>
+                </div>
+            </div>
+
+            <!-- Challenge 3 -->
+            <div class="bg-slate-900/40 p-8 rounded-2xl shadow-md border border-indigo-950">
+                <div class="flex items-start justify-between mb-4 border-b border-indigo-950 pb-3">
+                    <h3 class="text-xl font-bold text-indigo-300">Challenge 3: Binary Star System Orbit</h3>
+                    <span class="text-slate-500 font-mono text-sm">[6 Marks]</span>
+                </div>
+                <p class="mb-4 text-sm leading-relaxed text-slate-300">
+                    Two identical stars of equal mass \(M = 3.00 \times 10^{30}\text{ kg}\) are in circular orbits of radius \(R = 6.50 \times 10^{8}\text{ m}\) around their common center of mass (the distance separating their centers is \(2R\)).
+                    Take \(G = 6.67 \times 10^{-11}\text{ N m}^2\text{ kg}^{-2}\).
+                </p>
+
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">a) Calculate the orbital speed \(v\) of each star in \(\text{km s}^{-1}\). [3 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task3a-input" class="p-2.5 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter orbital speed" step="0.1">
+                            <span class="text-slate-400 text-sm">km/s</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="font-bold text-sm text-slate-200">b) Calculate the orbital period \(T\) of this system in hours. [3 marks]</p>
+                        <div class="flex gap-3 items-center mt-1 text-slate-300">
+                            <input type="number" id="task3b-input" class="p-2.5 bg-slate-950 border border-indigo-950 rounded-lg w-48 outline-none focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="Enter period" step="0.01">
+                            <span class="text-slate-400 text-sm">hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <button onclick="checkTask3()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition shadow">Check Answers</button>
+                    <button onclick="toggleSolution('sol-3')" class="bg-slate-800 text-slate-200 px-6 py-2.5 rounded-lg font-bold hover:bg-slate-700 transition">Show Full Solution</button>
+                </div>
+                <p id="msg-task-3" class="mt-4 font-medium"></p>
+                
+                <!-- Solution Block 3 -->
+                <div id="sol-3" class="hidden mt-4 p-6 bg-slate-900 border-l-4 border-indigo-500 rounded-xl text-sm space-y-4 text-slate-300">
+                    <strong class="text-slate-200 font-bold">Step-by-step Solution:</strong>
+                    <p><b>Part a) Orbital Speed:</b><br>
+                    The gravitational force acting between the two stars of separation \(2R\) provides the centripetal force for each star orbiting at radius \(R\):<br>
+                    \[\frac{G M^2}{(2R)^2} = \frac{M v^2}{R} \implies \frac{G M}{4R^2} = \frac{v^2}{R} \implies v = \sqrt{\frac{G M}{4R}}\]<br>
+                    Substitute the values:<br>
+                    \[v = \sqrt{\frac{6.67 \times 10^{-11} \times 3.00 \times 10^{30}}{4 \times 6.50 \times 10^8}} = \sqrt{\frac{2.001 \times 10^{20}}{2.60 \times 10^9}} = \sqrt{7.696 \times 10^{10}} \approx 2.774 \times 10^5\text{ m/s}\]<br>
+                    Converting to kilometers per second:<br>
+                    \[v \approx \mathbf{277\text{ km/s}}\] (or \(277.4\text{ km/s}\))</p>
+
+                    <p><b>Part b) Orbital Period:</b><br>
+                    Using the orbital relationship \(v = \frac{2\pi R}{T}\), we isolate \(T\):<br>
+                    \[T = \frac{2\pi R}{v} = \frac{2\pi \times 6.50 \times 10^8}{2.774 \times 10^5} \approx 14725\text{ s}\]<br>
+                    Converting to hours:<br>
+                    \[T = \frac{14725}{3600} \approx \mathbf{4.1\text{ hours}}\] (or \(4.09\text{ hours}\))</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Knowledge Check (MCQs) -->
+        <section class="space-y-8 bg-slate-900/40 p-8 rounded-3xl border border-indigo-950 shadow-sm">
+            <h2 class="text-3xl font-bold text-indigo-200 border-b-2 border-indigo-950 pb-2">Quick Knowledge Check</h2>
+            <div id="quiz-container" class="space-y-8">
+                <!-- Q1 -->
+                <div class="space-y-3">
+                    <p class="font-bold text-lg text-slate-300">1. A satellite is launched into a stable circular orbit around Earth. What provides the necessary centripetal force to maintain its circular path?</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="checkMCQ(1, 'A', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-1 text-sm text-slate-300">A: Atmospheric drag forces pushing tangential vectors.</button>
+                        <button onclick="checkMCQ(1, 'B', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-1 text-sm text-slate-300">B: The Earth's magnetic attraction acting on the metallic hull.</button>
+                        <button onclick="checkMCQ(1, 'C', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-1 text-sm text-slate-300">C: The Earth's gravitational pull on the satellite.</button>
+                    </div>
+                    <p id="feedback-1" class="hidden font-medium text-sm p-3 rounded-lg"></p>
+                </div>
+
+                <!-- Q2 -->
+                <div class="space-y-3">
+                    <p class="font-bold text-lg text-slate-300">2. How does the orbital velocity of a satellite relate to its orbital radius?</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="checkMCQ(2, 'A', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-2 text-sm text-slate-300">A: It is directly proportional to radius (\(v \propto r\)).</button>
+                        <button onclick="checkMCQ(2, 'B', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-2 text-sm text-slate-300">B: It is inversely proportional to the square root of radius (\(v \propto \frac{1}{\sqrt{r}}\)).</button>
+                        <button onclick="checkMCQ(2, 'C', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-2 text-sm text-slate-300">C: It is completely independent of the orbital radius.</button>
+                    </div>
+                    <p id="feedback-2" class="hidden font-medium text-sm p-3 rounded-lg"></p>
+                </div>
+
+                <!-- Q3 -->
+                <div class="space-y-3">
+                    <p class="font-bold text-lg text-slate-300">3. According to Kepler's Second Law, when a planet is closest to the Sun (perihelion) along its elliptical orbit, its speed is:</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="checkMCQ(3, 'A', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-3 text-sm text-slate-300">A: At its minimum, because the gravitational potential energy is maximized.</button>
+                        <button onclick="checkMCQ(3, 'B', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-3 text-sm text-slate-300">B: At its maximum, to conserve angular momentum as it sweeps equal areas in equal times.</button>
+                        <button onclick="checkMCQ(3, 'C', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-3 text-sm text-slate-300">C: Constant and equal to its speed at aphelion.</button>
+                    </div>
+                    <p id="feedback-3" class="hidden font-medium text-sm p-3 rounded-lg"></p>
+                </div>
+
+                <!-- Q4 -->
+                <div class="space-y-3">
+                    <p class="font-bold text-lg text-slate-300">4. A planet has double the mass of Earth but has the exact same radius. How does the escape velocity from this planet's surface compare to Earth's escape velocity (\(v_e\))?</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="checkMCQ(4, 'A', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-4 text-sm text-slate-300">A: It is twice as large (\(2v_e\)).</button>
+                        <button onclick="checkMCQ(4, 'B', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-4 text-sm text-slate-300">B: It is \(\sqrt{2}\) times larger (\(\approx 1.41 v_e\)) because escape velocity is proportional to the square root of the central mass.</button>
+                        <button onclick="checkMCQ(4, 'C', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-4 text-sm text-slate-300">C: It remains exactly the same (\(v_e\)) because radius dictates escape threshold parameters.</button>
+                    </div>
+                    <p id="feedback-4" class="hidden font-medium text-sm p-3 rounded-lg"></p>
+                </div>
+
+                <!-- Q5 -->
+                <div class="space-y-3">
+                    <p class="font-bold text-lg text-slate-300">5. Which of the following statements about a planet in a highly eccentric elliptical orbit around a star is correct?</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="checkMCQ(5, 'A', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-5 text-sm text-slate-300">A: Its linear speed remains constant throughout the entire orbit because the orbital plane represents a stable conservative system.</button>
+                        <button onclick="checkMCQ(5, 'B', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-5 text-sm text-slate-300">B: Its kinetic energy is at a maximum when it is closest to the star (perihelion), where the gravitational potential well is deepest.</button>
+                        <button onclick="checkMCQ(5, 'C', this)" class="p-3.5 text-left bg-slate-900 border border-indigo-950 rounded-xl hover:bg-indigo-950 transition quiz-opt-5 text-sm text-slate-300">C: Its total mechanical energy fluctuates, peaking at aphelion due to the conversion of thermal residues.</button>
+                    </div>
+                    <p id="feedback-5" class="hidden font-medium text-sm p-3 rounded-lg"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-950 text-indigo-300 py-12 px-6 text-center text-xs border-t border-indigo-950">
+        <p>&copy; 2026 Gravitational Fields &amp; Planetary Motion Physics Module.</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // DYNAMIC PHYSICS SANDBOX ENGINES
+        // ==========================================
+
+        // --- 1. SIMULATION A: NEWTON'S GRAVITY SANDBOX ---
+        const canvasGravity = document.getElementById('canvas-gravity-sandbox');
+        const ctxGravity = canvasGravity ? canvasGravity.getContext('2d') : null;
+
+        let m1 = 50; // 10^24 kg
+        let m2 = 30; // 10^24 kg
+        let separation = 12; // 10^6 m
+
+        function updateGravitySandbox() {
+            m1 = parseFloat(document.getElementById('slider-m1').value);
+            m2 = parseFloat(document.getElementById('slider-m2').value);
+            separation = parseFloat(document.getElementById('slider-r').value);
+
+            document.getElementById('lbl-m1').innerText = m1.toFixed(0) + ' × 10²⁴ kg';
+            document.getElementById('lbl-m2').innerText = m2.toFixed(0) + ' × 10²⁴ kg';
+            document.getElementById('lbl-r').innerText = separation.toFixed(1) + ' × 10⁶ m';
+
+            // Calculate Force: F = G * m1 * m2 / r^2
+            const G = 6.674e-11;
+            const realM1 = m1 * 1e24;
+            const realM2 = m2 * 1e24;
+            const realR = separation * 1e6;
+
+            const F = (G * realM1 * realM2) / (realR * realR);
+            const g1 = (G * realM1) / (realR * realR); // Field at body 2 due to body 1
+            const g2 = (G * realM2) / (realR * realR); // Field at body 1 due to body 2
+
+            document.getElementById('lbl-val-f').innerText = F.toExponential(3) + ' N';
+            document.getElementById('lbl-val-g1').innerText = g1.toFixed(3) + ' m/s²';
+            document.getElementById('lbl-val-g2').innerText = g2.toFixed(3) + ' m/s²';
+        }
+
+        function drawGravitySandbox() {
+            if (!ctxGravity) return;
+
+            const w = canvasGravity.parentElement.clientWidth;
+            if (canvasGravity.width !== w) {
+                canvasGravity.width = w;
+                canvasGravity.height = 260;
+            }
+
+            ctxGravity.clearRect(0, 0, canvasGravity.width, canvasGravity.height);
+
+            const midY = canvasGravity.height / 2;
+            const startX = 80;
+            const endX = canvasGravity.width - 80;
+
+            // Compute positions based on separation slider fraction
+            const rMin = 5.0, rMax = 25.0;
+            const frac = (separation - rMin) / (rMax - rMin);
+            const x1 = startX;
+            const x2 = startX + 50 + frac * (endX - startX - 50);
+
+            // Compute sizes
+            const size1 = Math.max(12, Math.min(32, 6 + Math.sqrt(m1) * 2));
+            const size2 = Math.max(12, Math.min(32, 6 + Math.sqrt(m2) * 2));
+
+            // Draw Body 1 (Blue)
+            ctxGravity.fillStyle = '#2563eb';
+            ctxGravity.beginPath();
+            ctxGravity.arc(x1, midY, size1, 0, Math.PI * 2);
+            ctxGravity.fill();
+            ctxGravity.strokeStyle = '#1d4ed8';
+            ctxGravity.lineWidth = 2;
+            ctxGravity.stroke();
+
+            // Draw Body 2 (Violet)
+            ctxGravity.fillStyle = '#8b5cf6';
+            ctxGravity.beginPath();
+            ctxGravity.arc(x2, midY, size2, 0, Math.PI * 2);
+            ctxGravity.fill();
+            ctxGravity.strokeStyle = '#6d28d9';
+            ctxGravity.lineWidth = 2;
+            ctxGravity.stroke();
+
+            // Draw force arrows pointing towards each other (Newton's 3rd Law pairs)
+            const arrowLength = Math.max(15, Math.min(80, 10 + (m1 * m2) / (separation * separation) * 0.1));
+            
+            // Force on 1 due to 2 (pointing right)
+            ctxGravity.strokeStyle = '#f43f5e';
+            ctxGravity.lineWidth = 3;
+            ctxGravity.beginPath();
+            ctxGravity.moveTo(x1, midY);
+            ctxGravity.lineTo(x1 + arrowLength, midY);
+            ctxGravity.stroke();
+            // Arrow head
+            ctxGravity.fillStyle = '#f43f5e';
+            ctxGravity.beginPath();
+            ctxGravity.moveTo(x1 + arrowLength - 6, midY - 4);
+            ctxGravity.lineTo(x1 + arrowLength, midY);
+            ctxGravity.lineTo(x1 + arrowLength - 6, midY + 4);
+            ctxGravity.fill();
+
+            // Force on 2 due to 1 (pointing left)
+            ctxGravity.beginPath();
+            ctxGravity.moveTo(x2, midY);
+            ctxGravity.lineTo(x2 - arrowLength, midY);
+            ctxGravity.stroke();
+            // Arrow head
+            ctxGravity.beginPath();
+            ctxGravity.moveTo(x2 - arrowLength + 6, midY - 4);
+            ctxGravity.lineTo(x2 - arrowLength, midY);
+            ctxGravity.lineTo(x2 - arrowLength + 6, midY + 4);
+            ctxGravity.fill();
+
+            // Text labels
+            ctxGravity.font = 'bold 9px monospace';
+            ctxGravity.fillStyle = '#94a3b8';
+            ctxGravity.fillText(`F₁₂`, x1 + arrowLength / 2 - 8, midY - 8);
+            ctxGravity.fillText(`F₂₁`, x2 - arrowLength / 2 - 8, midY - 8);
+
+            ctxGravity.font = '10px monospace';
+            ctxGravity.fillText("M₁", x1 - 5, midY + size1 + 15);
+            ctxGravity.fillText("M₂", x2 - 5, midY + size2 + 15);
+
+            requestAnimationFrame(drawGravitySandbox);
+        }
+
+        // --- 2. PIECEWISE PLOTTER: INSIDE VS OUTSIDE ---
+        function drawPiecewiseField() {
+            const svg = document.getElementById('svg-piecewise');
+            const path = document.getElementById('svg-field-path');
+            const bLine = document.getElementById('svg-surface-boundary');
+            if (!svg || !path) return;
+
+            const width = svg.clientWidth || 320;
+            const height = svg.clientHeight || 192;
+
+            const r_surf = parseFloat(document.getElementById('slider-planet-r').value);
+            const m_planet = parseFloat(document.getElementById('slider-planet-m').value);
+
+            // Display labels
+            document.getElementById('lbl-planet-r').innerText = (r_surf * 100).toLocaleString() + ' km';
+            document.getElementById('lbl-planet-m').innerText = (m_planet / 10).toFixed(1) + ' × 10²⁴ kg';
+
+            const originX = width * 0.1;
+            const graphW = width * 0.8;
+            const yZero = height * 0.9;
+            const yMax = height * 0.2;
+            const graphH = yZero - yMax;
+
+            // Map R to screen coordinates
+            const R_screen = originX + (r_surf / 200) * graphW;
+
+            // Position boundary line
+            if (bLine) {
+                bLine.setAttribute('x1', R_screen);
+                bLine.setAttribute('x2', R_screen);
+                bLine.setAttribute('y1', height * 0.1);
+                bLine.setAttribute('y2', height * 0.9);
+            }
+
+            // G Constant scaling factor for aesthetic fitting
+            const G_scale = 1000;
+            const g_surf = (G_scale * m_planet) / (r_surf * r_surf);
+            const scaleY = graphH / g_surf;
+
+            // Guarantee that the piecewise graph starts exactly from the origin (0,0) of the graph coordinates
+            let points = [`${originX},${yZero}`];
+            for (let px = originX + 2; px <= originX + graphW; px += 2) {
+                const r = ((px - originX) / graphW) * 200;
+                let g = 0;
+
+                if (r < r_surf) {
+                    // Linear growth inside solid planet: g = G * M * r / R^3
+                    g = (G_scale * m_planet * r) / (r_surf * r_surf * r_surf);
+                } else {
+                    // Inverse square decay outside: g = G * M / r^2
+                    g = (G_scale * m_planet) / (r * r);
+                }
+
+                const py = yZero - g * scaleY;
+                if (py >= height * 0.05 && py <= height * 0.95) {
+                    points.push(`${px},${py}`);
+                }
+            }
+
+            if (points.length > 0) {
+                path.setAttribute('d', 'M ' + points.join(' L '));
+            }
+        }
+
+
+        // --- 3. SIMULATION C: NEWTON'S CANNONBALL ---
+        const canvasCannon = document.getElementById('canvas-newton-cannon');
+        const ctxCannon = canvasCannon ? canvasCannon.getContext('2d') : null;
+
+        let launchSpeed = 5.0; // km/s
+        let satX = 0, satY = -65;
+        let satVx = 0, satVy = 0;
+        let isOrbiting = false;
+        let cannonCollision = false;
+        let cannonEscaped = false;
+        let orbitTrail = [];
+
+        function updateCannonParams() {
+            launchSpeed = parseFloat(document.getElementById('slider-cannon-v').value);
+            document.getElementById('lbl-cannon-v').innerText = launchSpeed.toFixed(2) + ' km/s';
+
+            // Static theoretical speeds for display
+            // v_circular = sqrt(GM/r)
+            const GM_sim = 2000;
+            const r_init = 65;
+            const v_c = Math.sqrt(GM_sim / r_init); // ~5.55
+            const v_e = Math.sqrt(2) * v_c; // ~7.85
+
+            // convert back to km/s equivalent scale
+            const scale = 5.55 / 5.0; // speed scale matching slider default 5.0
+            document.getElementById('lbl-cannon-vc').innerText = (v_c / scale).toFixed(2) + ' km/s';
+            document.getElementById('lbl-cannon-ve').innerText = (v_e / scale).toFixed(2) + ' km/s';
+        }
+
+        function fireCannon() {
+            satX = 0;
+            satY = -65; // Starting position at mountain peak (12 o'clock position)
+            
+            // Map km/s slider value to simulation speed units
+            const speedScale = 5.55 / 5.0;
+            const simSpeed = launchSpeed * speedScale;
+            satVx = simSpeed;
+            satVy = 0;
+
+            orbitTrail = [];
+            cannonCollision = false;
+            cannonEscaped = false;
+            isOrbiting = true;
+        }
+
+        function drawNewtonCannon() {
+            if (!ctxCannon) return;
+
+            const w = canvasOuterWidth = canvasCannon.parentElement.clientWidth;
+            if (canvasCannon.width !== w) {
+                canvasCannon.width = w;
+                canvasCannon.height = 320;
+                fireCannon();
+            }
+
+            ctxCannon.clearRect(0, 0, canvasCannon.width, canvasCannon.height);
+
+            const cx = canvasCannon.width / 2;
+            const cy = canvasCannon.height / 2;
+            const EarthRadius = 45;
+
+            // Physics calculation loop using Euler-Cromer
+            if (isOrbiting && !cannonCollision && !cannonEscaped) {
+                const r = Math.sqrt(satX*satX + satY*satY);
+                if (r < EarthRadius) {
+                    cannonCollision = true;
+                } else if (r > 320) {
+                    cannonEscaped = true;
+                } else {
+                    const GM_sim = 2000;
+                    const ax = - (GM_sim * satX) / (r*r*r);
+                    const ay = - (GM_sim * satY) / (r*r*r);
+
+                    satVx += ax * 0.12;
+                    satVy += ay * 0.12;
+                    satX += satVx * 0.12;
+                    satY += satVy * 0.12;
+
+                    orbitTrail.push({x: satX, y: satY});
+                    if (orbitTrail.length > 300) {
+                        orbitTrail.shift();
+                    }
+                }
+            }
+
+            // --- DRAW PLANET EARTH ---
+            // Atmosphere glow
+            const glow = ctxCannon.createRadialGradient(cx, cy, EarthRadius - 10, cx, cy, EarthRadius + 20);
+            glow.addColorStop(0, '#1e3a8a');
+            glow.addColorStop(0.5, 'rgba(56, 189, 248, 0.25)');
+            glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctxCannon.fillStyle = glow;
+            ctxCannon.beginPath();
+            ctxCannon.arc(cx, cy, EarthRadius + 20, 0, Math.PI * 2);
+            ctxCannon.fill();
+
+            // Core planet
+            ctxCannon.fillStyle = '#0284c7';
+            ctxCannon.beginPath();
+            ctxCannon.arc(cx, cy, EarthRadius, 0, Math.PI * 2);
+            ctxCannon.fill();
+            ctxCannon.strokeStyle = '#0284c7';
+            ctxCannon.stroke();
+
+            // Draw continents simple shapes
+            ctxCannon.fillStyle = '#10b981';
+            ctxCannon.beginPath();
+            ctxCannon.arc(cx - 10, cy - 10, 14, 0, Math.PI * 2);
+            ctxCannon.arc(cx + 15, cy + 12, 11, 0, Math.PI * 2);
+            ctxCannon.fill();
+
+            // Draw Mountain Peak (extremely amplified for thought experiment)
+            ctxCannon.strokeStyle = '#475569';
+            ctxCannon.lineWidth = 3;
+            ctxCannon.beginPath();
+            ctxCannon.moveTo(cx, cy - EarthRadius);
+            ctxCannon.lineTo(cx, cy - EarthRadius - 18);
+            ctxCannon.stroke();
+
+            // --- DRAW TRAIL ---
+            ctxCannon.strokeStyle = 'rgba(239, 68, 68, 0.5)';
+            ctxCannon.lineWidth = 1.5;
+            ctxCannon.beginPath();
+            for (let i = 0; i < orbitTrail.length; i++) {
+                const px = cx + orbitTrail[i].x;
+                const py = cy + orbitTrail[i].y;
+                if (i === 0) ctxCannon.moveTo(px, py);
+                else ctxCannon.lineTo(px, py);
+            }
+            ctxCannon.stroke();
+
+            // --- DRAW PROJECTILE ---
+            if (!cannonCollision) {
+                ctxCannon.fillStyle = '#f43f5e';
+                ctxCannon.shadowBlur = 6;
+                ctxCannon.shadowColor = '#f43f5e';
+                ctxCannon.beginPath();
+                ctxCannon.arc(cx + satX, cy + satY, 4, 0, Math.PI * 2);
+                ctxCannon.fill();
+                ctxCannon.shadowBlur = 0;
+            }
+
+            // Real-time status display
+            const statusEl = document.getElementById('lbl-cannon-status');
+            if (statusEl) {
+                if (cannonCollision) {
+                    statusEl.innerText = "Crashed into Earth (Sub-orbital)";
+                    statusEl.className = "font-bold text-red-500";
+                } else if (cannonEscaped) {
+                    statusEl.innerText = "Escape velocity reached (Unbound)";
+                    statusEl.className = "font-bold text-purple-400";
+                } else if (isOrbiting) {
+                    statusEl.innerText = "In Orbit (Stable)";
+                    statusEl.className = "font-bold text-emerald-500";
+                } else {
+                    statusEl.innerText = "Ready to Launch";
+                    statusEl.className = "font-bold text-slate-500";
+                }
+            }
+
+            requestAnimationFrame(drawNewtonCannon);
+        }
+
+
+        // --- 4. SIMULATION D: KEPLER'S LAWS VISUALIZER ---
+        const canvasKepler = document.getElementById('canvas-kepler-laws');
+        const ctxKepler = canvasKepler ? canvasKepler.getContext('2d') : null;
+
+        let keplerTab = 'first'; // 'first', 'second', 'third'
+        let keplerEccentricity = 0.50; // default eccentricity
+        let keplerTime = 0;
+
+        // Second law sectors helper
+        let sectors = [];
+
+        function switchKeplerTab(tab) {
+            keplerTab = tab;
+
+            const tabs = ['first', 'second', 'third'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-kepler-' + t);
+                if (btn) {
+                    if (t === tab) {
+                        btn.className = "px-4 py-2 text-xs font-bold bg-indigo-950 text-indigo-300 border-t border-x border-indigo-900 rounded-t-lg transition";
+                    } else {
+                        btn.className = "px-4 py-2 text-xs font-semibold hover:bg-indigo-950/40 text-slate-400 transition";
+                    }
+                }
+            });
+
+            // Update explanation text
+            const title = document.getElementById('kepler-title');
+            const desc = document.getElementById('kepler-desc');
+            const controls = document.getElementById('kepler-controls');
+            const lblSlider = document.getElementById('lbl-slider-kepler');
+            const slider = document.getElementById('slider-kepler-param');
+
+            if (tab === 'first') {
+                title.innerText = "Kepler's First Law (Ellipses)";
+                desc.innerText = "The orbits of planets are ellipses, with the Sun located at one of the two foci of the ellipse. Adjustable eccentricity slider.";
+                controls.style.display = 'block';
+                lblSlider.innerHTML = "<span>Orbit Eccentricity (\(e\)):</span> <span id='lbl-kepler-ecc' class='text-indigo-400 font-bold'>0.50</span>";
+                slider.min = "0"; slider.max = "75"; slider.step = "5"; slider.value = keplerEccentricity * 100;
+            } else if (tab === 'second') {
+                title.innerText = "Kepler's Second Law (Equal Areas)";
+                desc.innerText = "A line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time. Shows speeds speeding up at perihelion and slowing down at aphelion.";
+                controls.style.display = 'none';
+            } else {
+                title.innerText = "Kepler's Third Law (T² \u221d r³)";
+                desc.innerText = "The square of the orbital period T of a planet is directly proportional to the cube of the semi-major axis r of its orbit. Change orbit radius to watch the plot coordinates move along the linear Kepler boundary.";
+                controls.style.display = 'block';
+                lblSlider.innerHTML = "<span>Orbit Radius (\(r\)):</span> <span id='lbl-kepler-radius' class='text-indigo-400 font-bold'>1.00 AU</span>";
+                slider.min = "40"; slider.max = "140"; slider.step = "5"; slider.value = "100";
+            }
+            updateKeplerParams();
+        }
+
+        function updateKeplerParams() {
+            const sliderVal = parseFloat(document.getElementById('slider-kepler-param').value);
+
+            if (keplerTab === 'first') {
+                keplerEccentricity = sliderVal / 100;
+                document.getElementById('lbl-kepler-ecc').innerText = keplerEccentricity.toFixed(2);
+                document.getElementById('lbl-kepler-aux').innerText = "Sum of focal distances (r₁ + r₂) is constant.";
+            } else if (keplerTab === 'third') {
+                const radiusAU = sliderVal / 100;
+                document.getElementById('lbl-kepler-radius').innerText = radiusAU.toFixed(2) + " AU";
+                
+                // Calculated T = r^1.5
+                const periodYears = Math.pow(radiusAU, 1.5);
+                document.getElementById('lbl-kepler-aux').innerText = `Period (T): ${periodYears.toFixed(2)} Years`;
+            }
+        }
+
+        function drawKeplerLaws() {
+            if (!ctxKepler) return;
+
+            const w = canvasKepler.parentElement.clientWidth;
+            if (canvasKepler.width !== w) {
+                canvasKepler.width = w;
+                canvasKepler.height = 280;
+            }
+
+            ctxKepler.clearRect(0, 0, canvasKepler.width, canvasKepler.height);
+            keplerTime += 0.02;
+
+            const cx = canvasKepler.width / 2;
+            const cy = canvasKepler.height / 2;
+
+            if (keplerTab === 'first') {
+                // FIRST LAW: Draw ellipse with foci
+                const a = 110; // semi-major axis
+                const b = a * Math.sqrt(1 - keplerEccentricity*keplerEccentricity); // semi-minor axis
+                const c = a * keplerEccentricity; // focal distance from center
+
+                // Draw Ellipse orbit path
+                ctxKepler.strokeStyle = 'rgba(99, 102, 241, 0.4)';
+                ctxKepler.lineWidth = 1.5;
+                ctxKepler.beginPath();
+                ctxKepler.ellipse(cx, cy, a, b, 0, 0, Math.PI * 2);
+                ctxKepler.stroke();
+
+                // Foci positions
+                const sunX = cx - c;
+                const emptyX = cx + c;
+
+                // Draw Sun at focus 1
+                ctxKepler.fillStyle = '#fbbf24';
+                ctxKepler.beginPath();
+                ctxKepler.arc(sunX, cy, 10, 0, Math.PI * 2);
+                ctxKepler.fill();
+                ctxKepler.strokeStyle = '#d97706';
+                ctxKepler.lineWidth = 1.5;
+                ctxKepler.stroke();
+
+                // Draw empty focus 2
+                ctxKepler.strokeStyle = 'rgba(255,255,255,0.2)';
+                ctxKepler.lineWidth = 1;
+                ctxKepler.beginPath();
+                ctxKepler.moveTo(emptyX - 4, cy - 4); ctxKepler.lineTo(emptyX + 4, cy + 4);
+                ctxKepler.moveTo(emptyX - 4, cy + 4); ctxKepler.lineTo(emptyX + 4, cy - 4);
+                ctxKepler.stroke();
+
+                // Evaluate planet position (using true anomaly approximation for animation)
+                // Kepler's equation approximation: angular momentum conservation makes planet go faster near perihelion (left side)
+                const meanAnomaly = keplerTime % (Math.PI * 2);
+                const trueAnomaly = meanAnomaly + 2 * keplerEccentricity * Math.sin(meanAnomaly); // 1st order Fourier approx
+                const r_len = (a * (1 - keplerEccentricity*keplerEccentricity)) / (1 + keplerEccentricity * Math.cos(trueAnomaly));
+
+                const planetX = sunX + r_len * Math.cos(trueAnomaly);
+                const planetY = cy - r_len * Math.sin(trueAnomaly);
+
+                // Draw distance lines from both foci
+                ctxKepler.strokeStyle = 'rgba(239, 68, 68, 0.35)';
+                ctxKepler.lineWidth = 1;
+                ctxKepler.beginPath();
+                ctxKepler.moveTo(sunX, cy);
+                ctxKepler.lineTo(planetX, planetY);
+                ctxKepler.moveTo(emptyX, cy);
+                ctxKepler.lineTo(planetX, planetY);
+                ctxKepler.stroke();
+
+                // Draw planet
+                ctxKepler.fillStyle = '#60a5fa';
+                ctxKepler.beginPath();
+                ctxKepler.arc(planetX, planetY, 5, 0, Math.PI * 2);
+                ctxKepler.fill();
+
+                // Text labels
+                ctxKepler.font = '8px monospace';
+                ctxKepler.fillStyle = '#94a3b8';
+                ctxKepler.fillText("Sun (Focus 1)", sunX - 25, cy - 14);
+                ctxKepler.fillText("Focus 2", emptyX - 18, cy - 10);
+
+            } else if (keplerTab === 'second') {
+                // SECOND LAW: Equal area sectors
+                const a = 110;
+                const e = 0.55; // constant eccentricity for visual clarity
+                const b = a * Math.sqrt(1 - e*e);
+                const c = a * e;
+                const sunX = cx - c;
+
+                // Draw Ellipse orbit path
+                ctxKepler.strokeStyle = 'rgba(99, 102, 241, 0.2)';
+                ctxKepler.lineWidth = 1.5;
+                ctxKepler.beginPath();
+                ctxKepler.ellipse(cx, cy, a, b, 0, 0, Math.PI * 2);
+                ctxKepler.stroke();
+
+                // Draw Sun
+                ctxKepler.fillStyle = '#fbbf24';
+                ctxKepler.beginPath();
+                ctxKepler.arc(sunX, cy, 10, 0, Math.PI * 2);
+                ctxKepler.fill();
+
+                // Mean anomaly mapping
+                const meanAnomaly = keplerTime % (Math.PI * 2);
+                const trueAnomaly = meanAnomaly + 2 * e * Math.sin(meanAnomaly);
+                const r_len = (a * (1 - e*e)) / (1 + e * Math.cos(trueAnomaly));
+
+                const planetX = sunX + r_len * Math.cos(trueAnomaly);
+                const planetY = cy - r_len * Math.sin(trueAnomaly);
+
+                // Area wedges creation
+                const sectorStep = (Math.PI * 2) / 8; // divide into 8 segments
+                for (let i = 0; i < 8; i++) {
+                    const startM = i * sectorStep;
+                    const endM = startM + 0.35; // sector duration
+
+                    const startTrue = startM + 2 * e * Math.sin(startM);
+                    const endTrue = endM + 2 * e * Math.sin(endM);
+
+                    ctxKepler.fillStyle = 'rgba(99, 102, 241, 0.15)';
+                    ctxKepler.beginPath();
+                    ctxKepler.moveTo(sunX, cy);
+                    
+                    // Draw outer arc
+                    for (let th = startTrue; th <= endTrue; th += 0.05) {
+                        const r_cur = (a * (1 - e*e)) / (1 + e * Math.cos(th));
+                        ctxKepler.lineTo(sunX + r_cur * Math.cos(th), cy - r_cur * Math.sin(th));
+                    }
+                    ctxKepler.closePath();
+                    ctxKepler.fill();
+                }
+
+                // Draw planet
+                ctxKepler.fillStyle = '#10b981';
+                ctxKepler.beginPath();
+                ctxKepler.arc(planetX, planetY, 5, 0, Math.PI * 2);
+                ctxKepler.fill();
+
+                // Vector velocity arrow
+                const speed = 1.8 * (1 + e * Math.cos(trueAnomaly)); // speed is maximum at perihelion (trueAnomaly = 0, left side)
+                const tangentAngle = trueAnomaly + Math.PI/2 + e * Math.sin(trueAnomaly); // approx tangent direction
+                ctxKepler.strokeStyle = '#ef4444';
+                ctxKepler.lineWidth = 2;
+                ctxKepler.beginPath();
+                ctxKepler.moveTo(planetX, planetY);
+                ctxKepler.lineTo(planetX + Math.cos(tangentAngle) * speed * 12, planetY - Math.sin(tangentAngle) * speed * 12);
+                ctxKepler.stroke();
+
+                ctxKepler.font = '8px monospace';
+                ctxKepler.fillStyle = '#94a3b8';
+                ctxKepler.fillText("Faster (Perihelion)", cx - a - c - 10, cy - b - 10);
+                ctxKepler.fillText("Slower (Aphelion)", cx + a - c - 30, cy - b - 10);
+
+            } else {
+                // THIRD LAW: T^2 vs r^3 line chart
+                const sliderVal = parseFloat(document.getElementById('slider-kepler-param').value);
+                const currentR = sliderVal / 100; // AU
+
+                const padX = 40, padY = 30;
+                const gW = canvasKepler.width - padX * 2;
+                const gH = canvasKepler.height - padY * 2;
+
+                // Draw Axes
+                ctxKepler.strokeStyle = '#475569';
+                ctxKepler.lineWidth = 1.5;
+                ctxKepler.beginPath();
+                ctxKepler.moveTo(padX, padY);
+                ctxKepler.lineTo(padX, canvasKepler.height - padY);
+                ctxKepler.lineTo(canvasKepler.width - padX, canvasKepler.height - padY);
+                ctxKepler.stroke();
+
+                // Kepler proportionality straight line: T^2 = r^3
+                ctxKepler.strokeStyle = 'rgba(99, 102, 241, 0.35)';
+                ctxKepler.lineWidth = 2;
+                ctxKepler.beginPath();
+                ctxKepler.moveTo(padX, canvasKepler.height - padY);
+                ctxKepler.lineTo(padX + gW, padY + 10);
+                ctxKepler.stroke();
+
+                // Map current selected radius to chart coordinates
+                const maxR3 = Math.pow(1.4, 3); // 2.744 max
+                const maxT2 = Math.pow(1.4, 3); // 2.744 max
+
+                const currentR3 = Math.pow(currentR, 3);
+                const currentT2 = Math.pow(Math.pow(currentR, 1.5), 2); // equal to r^3
+
+                const dotX = padX + (currentR3 / maxR3) * gW;
+                const dotY = (canvasKepler.height - padY) - (currentT2 / maxT2) * gH;
+
+                // Plot operating point
+                ctxKepler.fillStyle = '#f43f5e';
+                ctxKepler.shadowBlur = 6;
+                ctxKepler.shadowColor = '#f43f5e';
+                ctxKepler.beginPath();
+                ctxKepler.arc(dotX, dotY, 5.5, 0, Math.PI * 2);
+                ctxKepler.fill();
+                ctxKepler.shadowBlur = 0;
+
+                // Chart Labels
+                ctxKepler.font = 'bold 8px sans-serif';
+                ctxKepler.fillStyle = '#cbd5e1';
+                ctxKepler.fillText("Orbital Period squared T² (Years²)", padX - 35, padY - 10);
+                ctxKepler.fillText("Orbital Radius cubed r³ (AU³)", canvasKepler.width / 2 - 40, canvasKepler.height - 10);
+            }
+
+            requestAnimationFrame(drawKeplerLaws);
+        }
+
+
+        // ==========================================
+        // WORKBOOK DATA CHECKERS
+        // ==========================================
+        function checkTask1() {
+            const valA = parseFloat(document.getElementById('task1a-input').value);
+            const valB = parseFloat(document.getElementById('task1b-input').value);
+            const msg = document.getElementById('msg-task-1');
+
+            // part a) r = 4.21e7 or 42100000 m (Accept tolerance)
+            const correctA = Math.abs(valA - 4.21e7) < 2e6 || Math.abs(valA - 42100000) < 2e6;
+            // part b) v = 3070 m/s (Accept tolerance 3040 to 3100)
+            const correctB = Math.abs(valB - 3070) < 40;
+
+            if (correctA && correctB) {
+                msg.textContent = "Correct! [7/7 Marks] Geostationary radius is 4.21 × 10⁷ meters and linear speed is approximately 3,070 m/s.";
+                msg.className = "mt-4 font-semibold text-green-700 bg-green-50 border border-green-200 p-3 rounded-lg text-sm";
+            } else {
+                msg.textContent = "Incorrect somewhere. Use r³ = (GM * T²) / (4 * pi²) to find radius r, then v = (2 * pi * r) / T for linear speed.";
+                msg.className = "mt-4 font-semibold text-red-700 bg-red-50 border border-red-200 p-3 rounded-lg text-sm";
+            }
+        }
+
+        function checkTask2() {
+            const valA = parseFloat(document.getElementById('task2a-input').value);
+            const valB = parseFloat(document.getElementById('task2b-input').value);
+            const msg = document.getElementById('msg-task-2');
+
+            // part a) g_surface = 8.00 m/s^2 (Accept tolerance 7.9 to 8.1)
+            const correctA = Math.abs(valA - 8.00) < 0.15;
+            // part b) g_inside = 4.00 m/s^2 (Accept tolerance 3.9 to 4.1)
+            const correctB = Math.abs(valB - 4.00) < 0.15;
+
+            if (correctA && correctB) {
+                msg.textContent = "Correct! [6/6 Marks] Surface gravity is 8.00 m/s², and gravity halfway to the center is exactly 4.00 m/s² due to the linear relationship.";
+                msg.className = "mt-4 font-semibold text-green-700 bg-green-50 border border-green-200 p-3 rounded-lg text-sm";
+            } else {
+                msg.textContent = "Incorrect. Use g_surf = GM / R² for the surface gravity, and multiply by 0.5 for gravity halfway down.";
+                msg.className = "mt-4 font-semibold text-red-700 bg-red-50 border border-red-200 p-3 rounded-lg text-sm";
+            }
+        }
+
+        function checkTask3() {
+            const valA = parseFloat(document.getElementById('task3a-input').value);
+            const valB = parseFloat(document.getElementById('task3b-input').value);
+            const msg = document.getElementById('msg-task-3');
+
+            // part a) v = 277 or 277.4 km/s (Accept tolerance)
+            const correctA = Math.abs(valA - 277) < 3 || Math.abs(valA - 277.4) < 3;
+            // part b) T = 4.1 or 4.09 hours (Accept tolerance)
+            const correctB = Math.abs(valB - 4.1) < 0.1 || Math.abs(valB - 4.09) < 0.1;
+
+            if (correctA && correctB) {
+                msg.textContent = "Correct! [6/6 Marks] The orbital speed is approximately 277 km/s, and the orbital period of the system is 4.1 hours.";
+                msg.className = "mt-4 font-semibold text-green-400 bg-green-950/20 border border-green-900/50 p-3 rounded-lg text-sm";
+            } else {
+                msg.textContent = "Incorrect somewhere. Remember the gravitational force has a separation of 2R, so F = GM²/(4R²). Force is equal to Mv²/R.";
+                msg.className = "mt-4 font-semibold text-red-400 bg-red-950/20 border border-red-900/50 p-3 rounded-lg text-sm";
+            }
+        }
+
+        const mcqAnswers = {
+            1: 'C',
+            2: 'B',
+            3: 'B',
+            4: 'B',
+            5: 'B'
+        };
+
+        function checkMCQ(qNum, selected, btnEl) {
+            const feedback = document.getElementById("feedback-" + qNum);
+            const buttons = document.querySelectorAll(".quiz-opt-" + qNum);
+            
+            feedback.classList.remove('hidden', 'text-green-800', 'text-red-800', 'bg-green-50', 'bg-red-50', 'border-green-200', 'border-red-200');
+            
+            if (selected === mcqAnswers[qNum]) {
+                feedback.innerText = "Correct! Excellent grasp of structural gravitational concepts.";
+                feedback.classList.add('text-green-800', 'bg-green-50', 'border', 'border-green-200');
+            } else {
+                feedback.innerText = "Incorrect. The correct answer was option " + mcqAnswers[qNum] + ".";
+                feedback.classList.add('text-red-800', 'bg-red-50', 'border', 'border-red-200');
+            }
+            feedback.classList.remove('hidden');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-indigo-500', 'bg-indigo-950/20');
+            });
+            btnEl.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-950/20');
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        // ==========================================
+        // INITIALIZATION SEQUENCE
+        // ==========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            updateGravitySandbox();
+            drawGravitySandbox();
+
+            drawPiecewiseField();
+
+            updateCannonParams();
+            fireCannon();
+            drawNewtonCannon();
+
+            switchKeplerTab('first');
+            drawKeplerLaws();
+        });
+    </script>
+</body>
+</html>
